@@ -17,18 +17,14 @@ class MetroGraph:
         heap = [(0, source)]
         distances = {station: float('inf') for station in self.graph}
         previous = {}
-
         distances[source] = 0
 
         while heap:
             current_distance, current_station = heapq.heappop(heap)
-
             if current_station == destination:
                 break
-
             for neighbor, weight in self.graph[current_station]:
                 new_distance = current_distance + weight
-
                 if new_distance < distances[neighbor]:
                     distances[neighbor] = new_distance
                     previous[neighbor] = current_station
@@ -40,7 +36,6 @@ class MetroGraph:
     def _reconstruct_path(self, previous, source, destination):
         path = []
         current = destination
-
         while current != source:
             path.append(current)
             current = previous.get(current)
@@ -50,7 +45,6 @@ class MetroGraph:
         path.append(source)
         path.reverse()
         return path
-
 
 
 def calculate_cost_by_stations(stations):
@@ -63,11 +57,8 @@ def calculate_cost_by_stations(stations):
     else:
         return 35
 
-
-
 def nagpur_metro_station():
     metro = MetroGraph()
-
     stations = [
         "Prajapati Nagar",
         "Vaishnodevi Square",
@@ -93,23 +84,16 @@ def nagpur_metro_station():
 
     for station in stations:
         metro.graph[station]
-
     for i in range(len(stations) - 1):
         metro.add_connection(stations[i], stations[i + 1])
-
     return metro
-
-
 
 def main():
     metro = nagpur_metro_station()
-
     print("\nNAGPUR METRO ROUTE\n")
-
     print("Available Stations:")
     for station in metro.graph:
         print("#", station)
-
     source = input("\nEnter Source Station: ").strip()
     destination = input("Enter Destination Station: ").strip()
 
@@ -118,7 +102,6 @@ def main():
         return
 
     path = metro.dijkstra(source, destination)
-
     if not path:
         print("\nNo route found.")
         return
@@ -129,9 +112,8 @@ def main():
     print("\nSHORTEST METRO ROUTE")
     print(" -> ".join(path))
     print(f"\nStations Travelled : {stations_travelled}")
-    print(f"Cost               : ₹{fare}")
+    print(f"Cost : ₹{fare}")
     print("\n")
-
 
 if __name__ == "__main__":
     main()
